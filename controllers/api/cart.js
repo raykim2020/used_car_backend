@@ -8,7 +8,8 @@ module.exports = {
     setItemQtyInCart,
     checkout,
     history,
-    addToCart
+    addToCart,
+    buyCart
 };
 
 // A cart is the unpaid order for a user
@@ -67,6 +68,17 @@ async function history(req, res) {
         res.status(400).json({ msg: e.message });
     }
 
+}
+async function buyCart(req, res) {
+    try {
+        const currentUser = await User.findById(req.params.id)
+        currentUser.orderHistory = [...currentUser.orderHistory, ...currentUser.shoppingCart]
+        currentUser.shoppingCart = []
+        await currentUser.save()
+        res.status(200).json('working')
+    } catch (e) {
+        res.status(400).json({ msg: e.message });
+    }
 }
 //This is made for my App
 async function addToCart(req, res) {

@@ -19,15 +19,15 @@ router.get("/", (req, res) => {
         }
     })
 })
-router.get('/:id', (req, res) => {
-    User.findById(req.params.id).populate('shoppingCart')
-        .exec((err, foundUsers) => {
-            if (!err) {
-                res.status(200).json({ message: "All Good!", foundUsers })
-            } else {
-                res.status(400).json(err)
-            }
-        })
+router.get('/:id', async (req, res) => {
+    const user = await User.findById(req.params.id).populate('shoppingCart').populate('orderHistory')
+
+    if (user) {
+        res.status(200).json(user)
+    } else {
+        res.status(400).json('wrong!')
+    }
+
 })
 
 // router.get('/:id', (req, res) => {

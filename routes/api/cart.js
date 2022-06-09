@@ -17,7 +17,7 @@ router.get('/history', async function history(req, res) {
     }
 
 });
-
+router.put('/cart/buy/:id', ordersCtrl.buyCart)
 // POST /api/orders/cart/items/:id
 router.post('/cart/items/:id', ordersCtrl.addToCart);
 // POST /api/orders/cart/checkout
