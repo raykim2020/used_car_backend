@@ -10,7 +10,7 @@ app.use(cors())
 app.use(express.json());
 
 
-// app.use("/tasks", taskController)
+
 app.use(require('./config/checkToken'));
 app.use('/api/listingItem', require('./routes/api/listingItem'))
 app.use('/api/users', require('./routes/api/user'))
